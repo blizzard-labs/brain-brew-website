@@ -5,7 +5,10 @@
 .route-art.flyer-art{height:auto;min-height:0;background:transparent;overflow:visible;border-radius:0;box-shadow:none;transform:rotate(1.2deg)}.route-art.flyer-art img{display:block;width:100%;height:auto}
 
 /* Donation chooser */
-.hero-section{background:radial-gradient(circle at 48% 24%,rgba(255,247,248,.7),transparent 43%),linear-gradient(110deg,#d9d2ff 0%,#ead7f1 27%,#f7d7dc 55%,#ffbb92 100%)}
+.hero-section{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(circle at 48% 24%,rgba(255,247,248,.7),transparent 43%),linear-gradient(110deg,#d9d2ff 0%,#ead7f1 27%,#f7d7dc 55%,#ffbb92 100%)}
+.hero-section .hero{position:relative;z-index:2;padding-bottom:clamp(245px,22vw,335px)}
+.hero-sticker-parade{position:absolute;z-index:3;left:50%;bottom:0;width:max(1320px,106vw);pointer-events:none;user-select:none;transform:translateX(-50%) translateY(17%);filter:drop-shadow(0 14px 15px rgba(34,16,53,.13))}
+.hero-sticker-parade img{display:block;width:100%;height:auto}
 .hero-actions{gap:14px;flex-wrap:wrap}
 .donate-button{background:var(--purple)!important;color:#fff!important;border-radius:3px!important;font-weight:800!important;box-shadow:none!important}
 .donate-button:hover{background:#421c6e!important}
@@ -29,4 +32,5 @@
 .donation-note{font-size:11px;color:var(--muted);margin:0;text-align:center}
 .hero-actions .text-link{margin-left:10px}
 
-@media(max-width:560px){.hero-actions{align-items:stretch;gap:12px}.hero-actions .text-link{margin:5px 0 0}.donation-dialog{padding:28px 20px!important}.donation-dialog [data-slot="dialog-title"]{font-size:27px}.donation-option{padding:17px 15px}}
+@media(max-width:900px){.hero-section .hero{padding-bottom:235px}.hero-sticker-parade{width:1180px;left:51%;transform:translateX(-50%) translateY(18%)}}
+@media(max-width:560px){.hero-section .hero{padding-bottom:190px}.hero-sticker-parade{width:1040px;left:53%;transform:translateX(-50%) translateY(19%)}.hero-actions{align-items:stretch;gap:12px}.hero-actions .text-link{margin:5px 0 0}.donation-dialog{padding:28px 20px!important}.donation-dialog [data-slot="dialog-title"]{font-size:27px}.donation-option{padding:17px 15px}}
