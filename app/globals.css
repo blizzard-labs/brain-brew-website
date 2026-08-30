@@ -6,7 +6,7 @@
 
 /* Donation chooser */
 .hero-section{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(circle at 48% 24%,rgba(255,247,248,.7),transparent 43%),linear-gradient(110deg,#d9d2ff 0%,#ead7f1 27%,#f7d7dc 55%,#ffbb92 100%)}
-.hero-section .hero{position:relative;min-height:auto;padding-bottom:0}
+.hero-section .hero{position:relative;min-height:auto;padding-bottom:55px}
 .footer-sticker-parade{position:relative;height:140px;overflow:hidden;pointer-events:none;user-select:none;background:var(--deep)}
 .footer-sticker-track{position:absolute;top:-90px;left:50%;height:410px;display:flex;transform:translateX(-50%);filter:drop-shadow(0 -8px 12px rgba(0,0,0,.2))}
 .footer-sticker-track img{width:auto;height:100%;max-width:none;flex:none}
@@ -35,4 +35,4 @@
 .hero-actions .text-link{margin-left:10px}
 
 @media(max-width:900px){.footer-sticker-parade{height:124px}.footer-sticker-track{top:-80px;height:360px}}
-@media(max-width:560px){.footer-sticker-parade{height:108px}.footer-sticker-track{top:-70px;height:320px}.hero-actions{align-items:stretch;gap:12px}.hero-actions .text-link{margin:5px 0 0}.donation-dialog{padding:28px 20px!important}.donation-dialog [data-slot="dialog-title"]{font-size:27px}.donation-option{padding:17px 15px}}
+@media(max-width:560px){.hero-section .hero{padding-bottom:35px}.footer-sticker-parade{height:108px}.footer-sticker-track{top:-70px;height:320px}.hero-actions{align-items:stretch;gap:12px}.hero-actions .text-link{margin:5px 0 0}.donation-dialog{padding:28px 20px!important}.donation-dialog [data-slot="dialog-title"]{font-size:27px}.donation-option{padding:17px 15px}}
