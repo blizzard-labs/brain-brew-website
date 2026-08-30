@@ -6,8 +6,8 @@
 
 /* Donation chooser */
 .hero-section{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(circle at 48% 24%,rgba(255,247,248,.7),transparent 43%),linear-gradient(110deg,#d9d2ff 0%,#ead7f1 27%,#f7d7dc 55%,#ffbb92 100%)}
-.hero-section .hero{position:relative;padding-bottom:205px}
-.hero-sticker-parade{position:relative;z-index:4;height:175px;margin-top:-114px;margin-bottom:-61px;pointer-events:none;user-select:none;background-image:url('/brain-brew-sticker-strip-v3.png');background-repeat:repeat-x;background-position:center 50%;background-size:auto 360px;filter:drop-shadow(0 10px 12px rgba(34,16,53,.1))}
+.hero-section .hero{position:relative;padding-bottom:258px}
+.hero-sticker-parade{position:relative;z-index:4;height:200px;margin-top:-167px;margin-bottom:-33px;pointer-events:none;user-select:none;background-image:url('/brain-brew-sticker-strip-v3.png');background-repeat:repeat-x;background-position:center 50%;background-size:auto 410px;filter:drop-shadow(0 10px 12px rgba(34,16,53,.1))}
 .impact{position:relative;z-index:5}
 .hero-actions{gap:14px;flex-wrap:wrap}
 .donate-button{background:var(--purple)!important;color:#fff!important;border-radius:3px!important;font-weight:800!important;box-shadow:none!important}
@@ -32,5 +32,5 @@
 .donation-note{font-size:11px;color:var(--muted);margin:0;text-align:center}
 .hero-actions .text-link{margin-left:10px}
 
-@media(max-width:900px){.hero-section .hero{padding-bottom:170px}.hero-sticker-parade{height:150px;margin-top:-98px;margin-bottom:-52px;background-size:auto 315px}}
-@media(max-width:560px){.hero-section .hero{padding-bottom:155px}.hero-sticker-parade{height:132px;margin-top:-86px;margin-bottom:-46px;background-size:auto 285px}.hero-actions{align-items:stretch;gap:12px}.hero-actions .text-link{margin:5px 0 0}.donation-dialog{padding:28px 20px!important}.donation-dialog [data-slot="dialog-title"]{font-size:27px}.donation-option{padding:17px 15px}}
+@media(max-width:900px){.hero-section .hero{padding-bottom:214px}.hero-sticker-parade{height:170px;margin-top:-142px;margin-bottom:-28px;background-size:auto 360px}}
+@media(max-width:560px){.hero-section .hero{padding-bottom:192px}.hero-sticker-parade{height:148px;margin-top:-123px;margin-bottom:-25px;background-size:auto 320px}.hero-actions{align-items:stretch;gap:12px}.hero-actions .text-link{margin:5px 0 0}.donation-dialog{padding:28px 20px!important}.donation-dialog [data-slot="dialog-title"]{font-size:27px}.donation-option{padding:17px 15px}}
