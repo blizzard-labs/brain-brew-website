@@ -9,7 +9,7 @@
 .hero-section .hero{position:relative;min-height:auto;padding-bottom:55px}
 .footer-sticker-parade{position:relative;height:140px;overflow:hidden;pointer-events:none;user-select:none;background:var(--deep)}
 .footer-sticker-track{position:absolute;top:-90px;left:50%;height:410px;display:flex;transform:translateX(-50%);filter:drop-shadow(0 -8px 12px rgba(0,0,0,.2))}
-.footer-sticker-track img{width:auto;height:100%;max-width:none;flex:none}
+.footer-sticker-track img{width:auto;height:100%;max-width:none;flex:none}.footer-sticker-track img:not(:last-child){margin-right:-40px}
 .impact{position:relative;z-index:5}
 .hero-actions{gap:14px;flex-wrap:wrap}
 .donate-button{background:var(--purple)!important;color:#fff!important;border-radius:3px!important;font-weight:800!important;box-shadow:none!important}
