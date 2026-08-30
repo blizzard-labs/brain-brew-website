@@ -30,7 +30,7 @@ export default function Home() {
         <p className="micro">Free to attend · Walk-ups welcome · Suggested donation $30</p>
       </div>
       <div className="route-art flyer-art"><Image src="/brain-brew-route-transparent.png" width={1536} height={1024} sizes="(max-width: 900px) 100vw, 45vw" priority alt="Illustrated San Francisco map showing the red Brain Brew route, Golden Gate Bridge, running shoe, coffee cup, and brain" /></div>
-    </div><div className="hero-sticker-parade" aria-hidden="true"><Image src="/brain-brew-sticker-strip.png" width={2172} height={724} sizes="110vw" alt="" /></div></section>
+    </div><div className="hero-sticker-parade" aria-hidden="true" /></section>
     <section className="impact"><div className="shell impact-inner"><Heart fill="currentColor"/><p>Everything raised supports patients through the <strong>Michael J. Fox Foundation</strong> and the <strong>Alzheimer’s Association.</strong></p></div></section>
     <section className="section shell" id="weekend"><div className="section-head"><div><p className="eyebrow">Choose your day—or join all three</p><h2>Your weekend at a glance</h2></div><p>Every event is free, welcoming, and designed so you can participate in the way that works for you.</p></div><div className="day-grid">{days.map(({icon: Icon,...d})=><article className={`day-card ${d.tone}`} key={d.n}><div className="day-top"><span>{d.n}</span><Icon/></div><p className="date">{d.date}</p><h3>{d.title}</h3><p className="time"><Clock3 size={16}/>{d.time}</p><p>{d.text}</p><a href={d.href}>See the details <ArrowRight size={16}/></a></article>)}</div></section>
     <section className="details section" id="plan"><div className="shell">
