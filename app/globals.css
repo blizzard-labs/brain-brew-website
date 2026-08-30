@@ -15,7 +15,7 @@
 .footer-grid{padding-inline:clamp(94px,11vw,155px)}
 .footer-bottom{padding-inline:clamp(94px,11vw,155px)}
 .footer-grid a{overflow-wrap:anywhere}
-.footer-sticker-border{user-select:none;filter:drop-shadow(0 8px 12px rgba(0,0,0,.25))}
+.footer-sticker-border{--footer-sticker-canvas:410px;--footer-sticker-length:1230px;user-select:none;filter:drop-shadow(0 8px 12px rgba(0,0,0,.25))}
 .impact{position:relative;z-index:5}
 .hero-actions{gap:14px;flex-wrap:wrap}
 .donate-button{background:var(--purple)!important;color:#fff!important;border-radius:3px!important;font-weight:800!important;box-shadow:none!important}
@@ -74,5 +74,5 @@
 .feed-footer nav{display:flex;gap:20px}.feed-footer a{display:flex;align-items:center;gap:5px;color:var(--purple);font-size:11px;font-weight:900;text-decoration:none}.feed-footer a:hover{text-decoration:underline}.feed-footer svg{width:12px;height:12px}
 @keyframes feed-loading{to{background-position:-200% 0}}
 
-@media(max-width:900px){.footer-sticker-parade{height:124px}.footer-sticker-track{top:-80px;height:360px}.footer-grid,.footer-bottom{padding-inline:clamp(50px,9vw,90px)}.feed-heading{display:block}.feed-heading-side{align-items:center;justify-content:space-between;margin-top:20px}.feed-card{flex-basis:272px}}
-@media(max-width:560px){.hero-section .hero{padding-bottom:35px}.footer-sticker-parade{height:108px}.footer-sticker-track{top:-70px;height:320px}.footer-grid,.footer-bottom{padding-inline:42px}.footer-sticker-border{opacity:.45}.hero-actions{align-items:stretch;gap:12px}.hero-actions .text-link{margin:5px 0 0}.donation-dialog{padding:28px 20px!important}.donation-dialog [data-slot="dialog-title"]{font-size:27px}.donation-option{padding:17px 15px}.feed-heading h2{font-size:37px}.feed-heading-side>p{font-size:13px}.feed-controls{display:none}.feed-card{flex-basis:82vw;max-width:282px}.feed-footer{align-items:flex-start;flex-direction:column}.feed-footer nav{gap:13px;flex-wrap:wrap}}
+@media(max-width:900px){.footer-sticker-parade{height:124px}.footer-sticker-track{top:-80px;height:360px}.footer-sticker-border{--footer-sticker-canvas:360px;--footer-sticker-length:1080px}.footer-grid,.footer-bottom{padding-inline:clamp(50px,9vw,90px)}.feed-heading{display:block}.feed-heading-side{align-items:center;justify-content:space-between;margin-top:20px}.feed-card{flex-basis:272px}}
+@media(max-width:560px){.hero-section .hero{padding-bottom:35px}.footer-sticker-parade{height:108px}.footer-sticker-track{top:-70px;height:320px}.footer-grid,.footer-bottom{padding-inline:42px}.footer-sticker-border{--footer-sticker-canvas:320px;--footer-sticker-length:960px;opacity:.45}.hero-actions{align-items:stretch;gap:12px}.hero-actions .text-link{margin:5px 0 0}.donation-dialog{padding:28px 20px!important}.donation-dialog [data-slot="dialog-title"]{font-size:27px}.donation-option{padding:17px 15px}.feed-heading h2{font-size:37px}.feed-heading-side>p{font-size:13px}.feed-controls{display:none}.feed-card{flex-basis:82vw;max-width:282px}.feed-footer{align-items:flex-start;flex-direction:column}.feed-footer nav{gap:13px;flex-wrap:wrap}}
