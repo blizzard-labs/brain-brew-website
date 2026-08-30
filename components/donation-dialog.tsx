@@ -1,5 +1,6 @@
 "use client";
 
+import type { ComponentProps } from "react";
 import { ArrowUpRight, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,11 +27,13 @@ const donationOptions = [
   },
 ];
 
-export function DonationDialog() {
+type DonationDialogProps = Pick<ComponentProps<typeof Button>, "className" | "size">;
+
+export function DonationDialog({ className, size = "lg" }: DonationDialogProps = {}) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="lg" className="donate-button">
+        <Button size={size} className={`donate-button ${className ?? ""}`}>
           <Heart aria-hidden="true" /> Donate
         </Button>
       </DialogTrigger>
