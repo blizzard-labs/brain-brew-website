@@ -1,6 +1,7 @@
 import { ArrowRight, Bike, Clock3, Heart, Mail, MapPin, PersonStanding, ShieldCheck, Users } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { DonationDialog } from "@/components/donation-dialog";
 
 const days = [
   { n: "01", date: "SAT · SEP 19", title: "Corpus Callosum 5K", time: "8:00–10:00 AM", icon: PersonStanding, text: "A welcoming 5K run/walk through neighborhood streets. All paces, walkers, strollers, and leashed dogs are welcome.", href: "#day-one", tone: "coral" },
@@ -22,14 +23,14 @@ export default function Home() {
       <div className="nav-links"><a href="#weekend">The weekend</a><a href="#plan">Plan your visit</a><a href="#safety">Safety</a></div>
       <Button asChild className="register"><a href="https://forms.gle/TBYodKPwEr8REew2A" target="_blank" rel="noreferrer">Register free <ArrowRight size={16}/></a></Button>
     </nav>
-    <section className="hero shell" id="top">
-      <div className="hero-copy"><p className="eyebrow">September 19–21, 2026 · San Francisco</p><h1>Move for a<br/><em>healthier brain.</em></h1>
+    <section className="hero-section" id="top"><div className="hero shell">
+      <div className="hero-copy"><p className="eyebrow">World Alzheimer’s Day · San Francisco</p><h1>Move for a<br/><em>healthier brain.</em></h1>
         <p className="lede">Three student-led days. One brain-shaped route. Join a 5K, explore a free community day, and follow a citywide ride supporting families affected by Alzheimer’s and Parkinson’s.</p>
-        <div className="hero-actions"><Button asChild size="lg" className="register"><a href="https://forms.gle/TBYodKPwEr8REew2A" target="_blank" rel="noreferrer">Save your spot <ArrowRight size={17}/></a></Button><a className="text-link" href="#weekend">Explore the weekend ↓</a></div>
+        <div className="hero-actions"><Button asChild size="lg" className="register"><a href="https://forms.gle/TBYodKPwEr8REew2A" target="_blank" rel="noreferrer">Save your spot <ArrowRight size={17}/></a></Button><DonationDialog/><a className="text-link" href="#weekend">Explore the weekend ↓</a></div>
         <p className="micro">Free to attend · Walk-ups welcome · Suggested donation $30</p>
       </div>
-      <div className="route-art flyer-art"><Image src="/brain-brew-route.png" width={547} height={365} sizes="(max-width: 900px) 100vw, 45vw" priority alt="Illustrated San Francisco map showing the red Brain Brew route, Golden Gate Bridge, running shoe, coffee cup, and brain" /></div>
-    </section>
+      <div className="route-art flyer-art"><Image src="/brain-brew-route-transparent.png" width={1536} height={1024} sizes="(max-width: 900px) 100vw, 45vw" priority alt="Illustrated San Francisco map showing the red Brain Brew route, Golden Gate Bridge, running shoe, coffee cup, and brain" /></div>
+    </div></section>
     <section className="impact"><div className="shell impact-inner"><Heart fill="currentColor"/><p>Everything raised supports patients through the <strong>Michael J. Fox Foundation</strong> and the <strong>Alzheimer’s Association.</strong></p></div></section>
     <section className="section shell" id="weekend"><div className="section-head"><div><p className="eyebrow">Choose your day—or join all three</p><h2>Your weekend at a glance</h2></div><p>Every event is free, welcoming, and designed so you can participate in the way that works for you.</p></div><div className="day-grid">{days.map(({icon: Icon,...d})=><article className={`day-card ${d.tone}`} key={d.n}><div className="day-top"><span>{d.n}</span><Icon/></div><p className="date">{d.date}</p><h3>{d.title}</h3><p className="time"><Clock3 size={16}/>{d.time}</p><p>{d.text}</p><a href={d.href}>See the details <ArrowRight size={16}/></a></article>)}</div></section>
     <section className="details section" id="plan"><div className="shell">
