@@ -1,4 +1,5 @@
 import { ArrowRight, Bike, Clock3, Heart, Mail, MapPin, PersonStanding, ShieldCheck, Users } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const days = [
@@ -27,7 +28,7 @@ export default function Home() {
         <div className="hero-actions"><Button asChild size="lg" className="register"><a href="https://forms.gle/TBYodKPwEr8REew2A" target="_blank" rel="noreferrer">Save your spot <ArrowRight size={17}/></a></Button><a className="text-link" href="#weekend">Explore the weekend ↓</a></div>
         <p className="micro">Free to attend · Walk-ups welcome · Suggested donation $30</p>
       </div>
-      <div className="route-art flyer-art"><img src="/brain-brew-route.png" alt="Illustrated San Francisco map showing the red Brain Brew route, Golden Gate Bridge, running shoe, coffee cup, and brain" /></div>
+      <div className="route-art flyer-art"><Image src="/brain-brew-route.png" width={547} height={365} sizes="(max-width: 900px) 100vw, 45vw" priority alt="Illustrated San Francisco map showing the red Brain Brew route, Golden Gate Bridge, running shoe, coffee cup, and brain" /></div>
     </section>
     <section className="impact"><div className="shell impact-inner"><Heart fill="currentColor"/><p>Everything raised supports patients through the <strong>Michael J. Fox Foundation</strong> and the <strong>Alzheimer’s Association.</strong></p></div></section>
     <section className="section shell" id="weekend"><div className="section-head"><div><p className="eyebrow">Choose your day—or join all three</p><h2>Your weekend at a glance</h2></div><p>Every event is free, welcoming, and designed so you can participate in the way that works for you.</p></div><div className="day-grid">{days.map(({icon: Icon,...d})=><article className={`day-card ${d.tone}`} key={d.n}><div className="day-top"><span>{d.n}</span><Icon/></div><p className="date">{d.date}</p><h3>{d.title}</h3><p className="time"><Clock3 size={16}/>{d.time}</p><p>{d.text}</p><a href={d.href}>See the details <ArrowRight size={16}/></a></article>)}</div></section>
