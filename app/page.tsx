@@ -41,6 +41,10 @@ export default function Home() {
     <section className="visit section shell"><div><p className="eyebrow">Home base</p><h2>Getting there</h2><p><MapPin size={20}/><strong>Buchanan YMCA</strong><br/>1530 Buchanan Street, San Francisco, CA 94115</p></div><div className="travel-grid"><div><b>Transit</b><p>Several Muni lines stop within a few blocks. Check 511.org or your maps app that morning.</p></div><div><b>Driving</b><p>Street parking is limited. Japan Center garages are the nearest paid option; add 20 minutes.</p></div><div><b>Biking</b><p>Bring a lock—racks are limited.</p></div></div></section>
     <section className="safety section" id="safety"><div className="shell safety-grid"><div><ShieldCheck/><p className="eyebrow">Know before you go</p><h2>Safe, simple, welcoming.</h2></div><ul><li>Waivers are required; participants under 18 need a parent or guardian signature.</li><li>Simulation gear is seated-only, supervised, and sanitized between uses.</li><li>First aid and a supervising adult are on site all three days.</li><li>Events run rain or shine unless there is a safety hazard.</li><li>Look for volunteers in purple shirts if you need anything.</li></ul></div></section>
     <footer><div className="shell footer-grid"><div><div className="brand light"><span className="brain-mark">BB</span><span>Brain Brew<span>Ride SF</span></span></div><h2>Ride, Run,<br/>Remember.</h2></div><div><p className="eyebrow">Questions?</p><a href="mailto:brainbrewsf@googlegroups.com"><Mail size={17}/>brainbrewsf@googlegroups.com</a><a href="tel:+16692919198">Day-of: (669) 291-9198</a><Button asChild className="footer-button"><a href="https://forms.gle/TBYodKPwEr8REew2A" target="_blank" rel="noreferrer">Register for free <ArrowRight size={16}/></a></Button></div></div><div className="shell footer-bottom"><span>Brain Brew Ride · September 19–21, 2026</span><span>San Francisco, California</span></div></footer>
-    <div className="footer-sticker-parade" aria-hidden="true" />
+    <div className="footer-sticker-parade" aria-hidden="true">
+      <div className="footer-sticker-track">
+        {[0, 1, 2].map((copy) => <Image key={copy} src="/brain-brew-sticker-strip-v3.png" width={2172} height={724} alt="" />)}
+      </div>
+    </div>
   </main>;
 }
