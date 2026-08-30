@@ -8,14 +8,9 @@
 .hero-section{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(circle at 48% 24%,rgba(255,247,248,.7),transparent 43%),linear-gradient(110deg,#d9d2ff 0%,#ead7f1 27%,#f7d7dc 55%,#ffbb92 100%)}
 .hero-section .hero{position:relative;min-height:auto;padding-bottom:55px}
 .footer-sticker-parade{position:relative;height:140px;overflow:hidden;pointer-events:none;user-select:none;background:var(--deep)}
-.footer-sticker-track{position:absolute;top:-90px;left:50%;height:410px;display:flex;transform:translateX(-50%);filter:drop-shadow(0 -8px 12px rgba(0,0,0,.2))}
+.footer-sticker-track{position:absolute;top:-100px;left:50%;height:410px;display:flex;transform:translateX(-50%);filter:drop-shadow(0 -8px 12px rgba(0,0,0,.2))}
 .footer-sticker-track img{width:auto;height:100%;max-width:none;flex:none}.footer-sticker-track img:not(:last-child){margin-right:-40px}
 
-/* Vertical sticker edges around the footer contact area */
-.footer-grid{padding-inline:clamp(94px,11vw,155px)}
-.footer-bottom{padding-inline:clamp(94px,11vw,155px)}
-.footer-grid a{overflow-wrap:anywhere}
-.footer-sticker-border{--footer-sticker-canvas:410px;--footer-sticker-length:1230px;user-select:none;filter:drop-shadow(0 8px 12px rgba(0,0,0,.25))}
 .impact{position:relative;z-index:5}
 .hero-actions{gap:14px;flex-wrap:wrap}
 .donate-button{background:var(--purple)!important;color:#fff!important;border-radius:3px!important;font-weight:800!important;box-shadow:none!important}
@@ -61,8 +56,9 @@
 .feed-card-instagram .feed-card-fallback{background:linear-gradient(135deg,#dfd2ff,#f7c1d6 58%,#ffba86)}
 .feed-card-facebook .feed-card-fallback{background:linear-gradient(135deg,#dcecff,#c7d8fa 58%,#e3d5f2)}
 .feed-card-youtube .feed-card-fallback{background:linear-gradient(135deg,#f7d7da,#ffd8b8 58%,#e4d5f3)}
+.feed-card-strava .feed-card-fallback{background:linear-gradient(135deg,#ffe3d4,#ffb58d 58%,#fc7c3b)}
 .feed-platform-badge{position:absolute;left:13px;top:13px;height:28px;padding:0 10px;display:flex;align-items:center;gap:6px;background:#fffffff0;color:var(--deep);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.07em;box-shadow:0 4px 12px #24102e1a}
-.feed-platform-badge svg{width:13px;height:13px}.feed-card-instagram .feed-platform-badge svg{color:#b83272}.feed-card-facebook .feed-platform-badge svg{color:#2368bd}.feed-card-youtube .feed-platform-badge svg{color:#d93832}
+.feed-platform-badge svg{width:13px;height:13px}.feed-card-instagram .feed-platform-badge svg{color:#b83272}.feed-card-facebook .feed-platform-badge svg{color:#2368bd}.feed-card-youtube .feed-platform-badge svg{color:#d93832}.feed-card-strava .feed-platform-badge svg{color:#fc5200}
 .feed-card-copy{padding:18px 19px 20px;display:flex;min-height:0;flex:1;flex-direction:column}
 .feed-card-account{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--teal);font-size:10px;font-weight:900;letter-spacing:.04em}.feed-card-account svg{width:13px;height:13px;color:#9c8da4}
 .feed-card-copy h3{font-family:Georgia,serif;color:var(--deep);font-size:19px;line-height:1.2;margin:13px 0 8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -74,5 +70,5 @@
 .feed-footer nav{display:flex;gap:20px}.feed-footer a{display:flex;align-items:center;gap:5px;color:var(--purple);font-size:11px;font-weight:900;text-decoration:none}.feed-footer a:hover{text-decoration:underline}.feed-footer svg{width:12px;height:12px}
 @keyframes feed-loading{to{background-position:-200% 0}}
 
-@media(max-width:900px){.footer-sticker-parade{height:124px}.footer-sticker-track{top:-80px;height:360px}.footer-sticker-border{--footer-sticker-canvas:360px;--footer-sticker-length:1080px}.footer-grid,.footer-bottom{padding-inline:clamp(50px,9vw,90px)}.feed-heading{display:block}.feed-heading-side{align-items:center;justify-content:space-between;margin-top:20px}.feed-card{flex-basis:272px}}
-@media(max-width:560px){.hero-section .hero{padding-bottom:35px}.footer-sticker-parade{height:108px}.footer-sticker-track{top:-70px;height:320px}.footer-grid,.footer-bottom{padding-inline:42px}.footer-sticker-border{--footer-sticker-canvas:320px;--footer-sticker-length:960px;opacity:.45}.hero-actions{align-items:stretch;gap:12px}.hero-actions .text-link{margin:5px 0 0}.donation-dialog{padding:28px 20px!important}.donation-dialog [data-slot="dialog-title"]{font-size:27px}.donation-option{padding:17px 15px}.feed-heading h2{font-size:37px}.feed-heading-side>p{font-size:13px}.feed-controls{display:none}.feed-card{flex-basis:82vw;max-width:282px}.feed-footer{align-items:flex-start;flex-direction:column}.feed-footer nav{gap:13px;flex-wrap:wrap}}
+@media(max-width:900px){.footer-sticker-parade{height:124px}.footer-sticker-track{top:-80px;height:360px}.feed-heading{display:block}.feed-heading-side{align-items:center;justify-content:space-between;margin-top:20px}.feed-card{flex-basis:272px}}
+@media(max-width:560px){.hero-section .hero{padding-bottom:35px}.footer-sticker-parade{height:108px}.footer-sticker-track{top:-70px;height:320px}.hero-actions{align-items:stretch;gap:12px}.hero-actions .text-link{margin:5px 0 0}.donation-dialog{padding:28px 20px!important}.donation-dialog [data-slot="dialog-title"]{font-size:27px}.donation-option{padding:17px 15px}.feed-heading h2{font-size:37px}.feed-heading-side>p{font-size:13px}.feed-controls{display:none}.feed-card{flex-basis:82vw;max-width:282px}.feed-footer{align-items:flex-start;flex-direction:column}.feed-footer nav{gap:13px;flex-wrap:wrap}}
