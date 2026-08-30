@@ -23,10 +23,7 @@ export default function Home() {
       <div className="nav-links"><a href="#weekend">The weekend</a><a href="#plan">Plan your visit</a><a href="#safety">Safety</a></div>
       <Button asChild className="register"><a href="https://forms.gle/TBYodKPwEr8REew2A" target="_blank" rel="noreferrer">Register free <ArrowRight size={16}/></a></Button>
     </nav>
-    <section className="hero-section" id="top">
-      <Image className="hero-edge hero-edge-ribbon" src="/awareness-ribbon.png" width={950} height={1360} sizes="(max-width: 900px) 220px, 22vw" alt="" aria-hidden="true" />
-      <Image className="hero-edge hero-edge-tulip" src="/parkinsons-tulip.png" width={700} height={1550} sizes="(max-width: 900px) 190px, 18vw" alt="" aria-hidden="true" />
-      <div className="hero shell">
+    <section className="hero-section" id="top"><div className="hero shell">
       <div className="hero-copy"><p className="eyebrow">World Alzheimer’s Day · San Francisco</p><h1>Move for a<br/><em>healthier brain.</em></h1>
         <p className="lede">Three student-led days. One brain-shaped route. Join a 5K, explore a free community day, and follow a citywide ride supporting families affected by Alzheimer’s and Parkinson’s.</p>
         <div className="hero-actions"><Button asChild size="lg" className="register"><a href="https://forms.gle/TBYodKPwEr8REew2A" target="_blank" rel="noreferrer">Save your spot <ArrowRight size={17}/></a></Button><DonationDialog/><a className="text-link" href="#weekend">Explore the weekend ↓</a></div>
