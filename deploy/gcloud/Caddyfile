@@ -2,3 +2,7 @@ brainbrewsf.org {
 	encode zstd gzip
 	reverse_proxy app:3000
 }
+
+www.brainbrewsf.org {
+	redir https://brainbrewsf.org{uri} permanent
+}
