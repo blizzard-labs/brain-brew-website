@@ -35,7 +35,7 @@ yarn-error.log*
 # vercel
 .vercel
 
-# Sites build output
+# legacy/generated build output
 /dist/
 /.wrangler/
 
