@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   title: "Brain Brew Ride | Participant Guide",
   description: "Everything you need for Brain Brew Ride, September 19–21, 2026 in San Francisco.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: { url: "/logo.png", type: "image/png" },
+    shortcut: "/logo.png",
   },
 };
 

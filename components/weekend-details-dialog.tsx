@@ -32,9 +32,9 @@ const dayDetails = {
   two: {
     number: "02",
     eyebrow: "Sunday · Drop in anytime",
-    title: "A community day for curious minds",
+    title: "A community day for curious young minds",
     intro:
-      "For the entire family! Stay for twenty minutes or the afternoon—anytime from 11 AM to 3 PM.",
+      "For the entire family! Stay for twenty minutes or the afternoon—anytime from 11 AM to 3 PM. Accompanied by talks from UCSF doctors!",
     tone: "teal",
   },
   three: {
@@ -66,7 +66,7 @@ function DayContent({ day }: { day: WeekendDay }) {
         <div><span>01</span><h3>The Empathy Café</h3><p>Try tremor gloves and vision-distorting goggles while seated with a spotter.</p></div>
         <div><span>02</span><h3>The Memory Wall</h3><p>Honor someone you love who has been affected.</p></div>
         <div><span>03</span><h3>Build-a-Brain</h3><p>Kids create a model and learn what each region does.</p></div>
-        <div><span>04</span><h3>Move Your Mind</h3><p>Light games connect movement with long-term brain health.</p></div>
+        <div><span>04</span><h3>Move Your Mind</h3><p>Mind-controlled EEG games connect movement with long-term brain health.</p></div>
       </div>
     );
   }
