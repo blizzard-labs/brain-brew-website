@@ -32,7 +32,7 @@ const shifts = [
 ];
 
 const volunteerStyles = `
-  .volunteer-banner{position:relative;z-index:4;isolation:isolate;overflow:hidden;background:linear-gradient(110deg,var(--deep),#32164e);color:#fff}
+  .volunteer-banner{position:relative;z-index:4;isolation:isolate;overflow:hidden;background:var(--purple);color:#fff}
   .volunteer-banner:after{content:"";position:absolute;right:-75px;top:-115px;width:310px;height:310px;border:55px solid #ffffff0b;border-radius:50%;pointer-events:none}
   .volunteer-banner-inner{position:relative;z-index:1;min-height:164px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:25px}
   .volunteer-banner-icon{width:56px;height:56px;display:grid;place-items:center;border:1px solid #ffffff35;border-radius:50%;background:#ffffff10;color:#8ad9c6;flex:none}
@@ -40,7 +40,6 @@ const volunteerStyles = `
   .volunteer-banner-copy{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:22px;row-gap:7px}
   .volunteer-banner-copy h2{font-family:Georgia,serif;font-size:31px;line-height:1.1;letter-spacing:-.025em;margin:0;white-space:nowrap}
   .volunteer-banner-copy>p:last-child{grid-column:1/-1;color:#d5cbd9;font-size:14px;line-height:1.55;margin:0;max-width:720px}
-  .volunteer-kicker{color:#8ad9c6;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin:0}
   .volunteer-learn-more{height:44px!important;padding-inline:20px!important;border:1px solid #ffffff4d!important;border-radius:3px!important;background:#fff!important;color:var(--deep)!important;font-weight:900!important;box-shadow:none!important}
   .volunteer-learn-more:hover{background:#f1eaf2!important}
   .volunteer-dialog{border-top:6px solid var(--teal)!important}
@@ -73,7 +72,6 @@ export function VolunteerBanner() {
         <div className="shell volunteer-banner-inner">
           <span className="volunteer-banner-icon" aria-hidden="true"><HeartHandshake /></span>
           <div className="volunteer-banner-copy">
-            <p className="volunteer-kicker">Lend a hand on Community Day</p>
             <h2 id="volunteer-banner-title">Volunteer with us.</h2>
             <p>Earn verified service hours, get an event shirt, and enjoy food and drinks during your shift.</p>
           </div>
