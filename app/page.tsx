@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DonationDialog } from "@/components/donation-dialog";
 import { SocialFeed } from "@/components/social-feed";
 import { WeekendDetailsDialog } from "@/components/weekend-details-dialog";
+import { VolunteerBanner } from "@/components/volunteer-dialog";
 
 const days = [
   { n: "01", day: "one" as const, date: "SAT · SEP 19", title: "Corpus Callosum 5K", time: "8:00–10:00 AM", icon: PersonStanding, text: "A welcoming 5K run/walk through neighborhood streets. All paces, walkers, strollers, and leashed dogs are welcome.", tone: "coral" },
@@ -34,6 +35,7 @@ export default function Home() {
     </div></section>
     <section className="impact"><div className="shell impact-inner"><Heart fill="currentColor"/><p>Everything raised supports patients through the <strong>Michael J. Fox Foundation</strong> and the <strong>Alzheimer’s Association.</strong></p></div></section>
     <section className="section shell" id="weekend"><div className="section-head"><div><p className="eyebrow">Choose your day—or join all three</p><h2>Your weekend at a glance</h2></div><p>Every event is free, welcoming, and designed so you can participate in the way that works for you.</p></div><div className="day-grid">{days.map(({icon: Icon,...d})=><article className={`day-card ${d.tone}`} key={d.n}><div className="day-top"><span>{d.n}</span><Icon/></div><p className="date">{d.date}</p><h3>{d.title}</h3><p className="time"><Clock3 size={16}/>{d.time}</p><p>{d.text}</p><WeekendDetailsDialog day={d.day}/></article>)}</div></section>
+    <VolunteerBanner />
     <SocialFeed/>
     <section className="visit section shell" id="plan"><div><p className="eyebrow">Home base</p><h2>Getting there</h2><p><MapPin size={20}/><strong>Buchanan YMCA</strong><br/>1530 Buchanan Street, San Francisco, CA 94115</p></div><div className="travel-grid"><div><b>Transit</b><p>Several Muni lines stop within a few blocks. Check 511.org or your maps app that morning.</p></div><div><b>Driving</b><p>Street parking is limited. Japan Center garages are the nearest paid option; add 20 minutes.</p></div><div><b>Biking</b><p>Bring a lock—racks are limited.</p></div></div></section>
     <section className="safety section" id="safety"><div className="shell safety-grid"><div><ShieldCheck/><p className="eyebrow">Know before you go</p><h2>Safe, simple, welcoming.</h2></div><ul><li>Waivers are required; participants under 18 need a parent or guardian signature.</li><li>Simulation gear is seated-only, supervised, and sanitized between uses.</li><li>First aid and a supervising adult are on site all three days.</li><li>Events run rain or shine unless there is a safety hazard.</li><li>Look for volunteers in purple shirts if you need anything.</li></ul></div></section>
