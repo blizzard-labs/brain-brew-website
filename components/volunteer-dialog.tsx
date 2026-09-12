@@ -73,7 +73,7 @@ export function VolunteerBanner() {
           <span className="volunteer-banner-icon" aria-hidden="true"><HeartHandshake /></span>
           <div className="volunteer-banner-copy">
             <h2 id="volunteer-banner-title">Volunteer with us.</h2>
-            <p>Earn verified service hours, get an event shirt, and enjoy food and drinks during your shift.</p>
+            <p>Earn verified service hours, enjoy food and drinks, and support the mission.</p>
           </div>
           <VolunteerDialog />
         </div>
@@ -92,7 +92,7 @@ function VolunteerDialog() {
       </DialogTrigger>
       <DialogContent className="weekend-details-dialog volunteer-dialog">
         <DialogHeader className="weekend-dialog-header volunteer-dialog-header">
-          <span className="weekend-dialog-day">Sunday · September 20 · Buchanan YMCA</span>
+          <span className="weekend-dialog-day">Sunday · October 18 · Buchanan YMCA</span>
           <p className="eyebrow teal-text">Join the Community Day crew</p>
           <DialogTitle>Choose the shift that works for you.</DialogTitle>
           <DialogDescription className="weekend-dialog-intro">

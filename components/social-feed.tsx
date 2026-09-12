@@ -146,7 +146,7 @@ export function SocialFeed() {
       </div>
 
       <div className="feed-footer">
-        <span><i/> Auto-refreshing throughout ride weekend</span>
+        <span><i/> Auto-refreshing throughout the events</span>
         <nav aria-label="Follow Brain Brew">
           <a href={profiles.instagram} target="_blank" rel="noreferrer">Instagram <ExternalLink/></a>
           <a href={profiles.facebook} target="_blank" rel="noreferrer">Facebook <ExternalLink/></a>

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 
 const stops = [
-  ["Fort Mason / Marina Green", "9:45–10:45 AM", "Quiet first stop"],
+  ["Fort Mason Park", "9:45–10:45 AM", "Quiet first stop"],
   ["Pier 39 / Fisherman’s Wharf", "11:00 AM–12:30 PM", "Biggest stop"],
   ["Union Square", "2:00–3:30 PM", "Transit-friendly"],
   ["Oracle Park / South Beach", "3:45–4:30 PM", "Waterfront stop"],
@@ -23,15 +23,15 @@ type WeekendDay = "one" | "two" | "three";
 const dayDetails = {
   one: {
     number: "01",
-    eyebrow: "Saturday · Buchanan YMCA",
-    title: "Corpus Callosum 5K",
+    eyebrow: "Saturday · October 17 · Fort Mason Park",
+    title: "The Full Brain Brew Ride",
     intro:
-      "Not a race—just one group moving together. The flat, marshaled 3.1-mile course represents the fibers connecting the brain’s two halves.",
-    tone: "coral",
+      "Two organizers trace the full brain route on e-bikes. Follow the cafés, follow remotely, or meet the team at a landmark stop.",
+    tone: "purple",
   },
   two: {
     number: "02",
-    eyebrow: "Sunday · Drop in anytime",
+    eyebrow: "Sunday · October 18 · Buchanan YMCA",
     title: "A community day for curious young minds",
     intro:
       "For the entire family! Stay for twenty minutes or the afternoon—anytime from 11 AM to 3 PM. Accompanied by talks from UCSF doctors!",
@@ -39,16 +39,16 @@ const dayDetails = {
   },
   three: {
     number: "03",
-    eyebrow: "Monday · World Alzheimer’s Day",
-    title: "Meet the ride across the city",
+    eyebrow: "Saturday · October 24 · Kimbell Park",
+    title: "Corpus Callosum Run",
     intro:
-      "Two organizers trace the full brain route on e-bikes. Follow remotely or meet the team at a landmark stop.",
-    tone: "purple",
+      "A 5K community run/walk with Walk to End Alzheimer’s SF. The flat, marshaled 3.1-mile course represents the fibers connecting the brain’s two halves.",
+    tone: "coral",
   },
 } as const;
 
 function DayContent({ day }: { day: WeekendDay }) {
-  if (day === "one") {
+  if (day === "three") {
     return (
       <div className="timeline">
         <span><b>7:30</b>Check-in opens</span>

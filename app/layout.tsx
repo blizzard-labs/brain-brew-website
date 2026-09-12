@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Brain Brew Ride | Participant Guide",
-  description: "Everything you need for Brain Brew Ride, September 19–21, 2026 in San Francisco.",
+  description: "Everything you need for Brain Brew Ride, October 17, 18 & 24, 2026 in San Francisco.",
   icons: {
     icon: { url: "/logo.png", type: "image/png" },
     shortcut: "/logo.png",
