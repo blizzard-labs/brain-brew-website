@@ -15,7 +15,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 
-RUN npm run build
+RUN npm test
 
 
 FROM node:22-bookworm-slim AS runner

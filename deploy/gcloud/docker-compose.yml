@@ -1,7 +1,6 @@
 services:
   app:
-    build:
-      context: ./brain-brew
+    image: ${BRAIN_BREW_IMAGE:?Set BRAIN_BREW_IMAGE to a published image; see README.md}
     container_name: brain_brew_app
     restart: unless-stopped
     environment:
