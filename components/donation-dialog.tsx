@@ -16,7 +16,7 @@ const donationOptions = [
   {
     name: "Alzheimer’s Association",
     description: "Support families affected by Alzheimer’s and help advance care and research.",
-    href: "https://events.alz.org/fundraisers/krishnabhatt/brain-brew",
+    href: "http://act.alz.org/goto/brainbrew",
     className: "alzheimers",
   },
   {

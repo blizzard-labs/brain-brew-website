@@ -26,7 +26,7 @@ const dayDetails = {
     eyebrow: "Saturday · October 17 · Fort Mason Park",
     title: "The Full Brain Brew Ride",
     intro:
-      "Two organizers trace the full brain route on e-bikes. Follow the cafés, follow remotely, or meet the team at a landmark stop.",
+      "The organizers trace the full brain route on e-bikes. Follow the cafés, follow remotely, or meet the team at a landmark stop.",
     tone: "purple",
   },
   two: {
@@ -39,10 +39,10 @@ const dayDetails = {
   },
   three: {
     number: "03",
-    eyebrow: "Saturday · October 24 · Kimbell Park",
-    title: "Corpus Callosum Run",
+    eyebrow: "Saturday · October 24 · Bayfront Park, Mission Bay",
+    title: "The Brain Brew Crew",
     intro:
-      "A 5K community run/walk with Walk to End Alzheimer’s SF. The flat, marshaled 3.1-mile course represents the fibers connecting the brain’s two halves.",
+      "Bring family and friends! Join our Walk to End Alzheimer’s team for the opening ceremony and help hoist our Memory Wall. Walk the 3-mile route with us, or choose the shorter 1-mile option.",
     tone: "coral",
   },
 } as const;
@@ -50,12 +50,15 @@ const dayDetails = {
 function DayContent({ day }: { day: WeekendDay }) {
   if (day === "three") {
     return (
-      <div className="timeline">
-        <span><b>7:30</b>Check-in opens</span>
-        <span><b>8:00</b>Briefing</span>
-        <span><b>8:10</b>Group photo</span>
-        <span><b>8:15</b>Roll out</span>
-        <span><b>~9:00</b>Finish + cold brew</span>
+      <div className="walk-details">
+        <section aria-label="Walk schedule">
+          <div className="timeline walk-timeline">
+            <span><b>10:00 AM</b>Walk opening ceremony</span>
+            <span><b>10:30 AM</b>Community walk begins</span>
+          </div>
+          <p className="walk-source">*Please check the <a href="https://www.alz.org/sanfranciscowalk" target="_blank" rel="noreferrer">official Walk page</a> for updates.</p>
+          <p className="notice"><b><u>CRITICAL</u>: </b>Each walker should <a href="http://act.alz.org/goto/brainbrew" target="_blank" rel="noopener noreferrer">register with Walk to End Alzheimer’s</a> and complete the event waiver. Brain Brew’s interest form is separate from Walk registration.</p>
+        </section>
       </div>
     );
   }
