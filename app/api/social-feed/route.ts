@@ -149,7 +149,7 @@ function parseYouTubePosts(html: string): FeedItem[] {
   return posts;
 }
 
-function parseInstagram(html: string): FeedItem[] {
+export function parseInstagram(html: string): FeedItem[] {
   const match = html.match(/"contextJSON":"((?:\\.|[^"\\])*)"/);
   if (!match) return [];
 
@@ -160,7 +160,11 @@ function parseInstagram(html: string): FeedItem[] {
     media = payload.context?.graphql_media ?? [];
   } catch { return []; }
 
-  return media.map((item) => {
+  return media.map((entry) => {
+    // Instagram's embed payload currently wraps each post in
+    // `shortcode_media`. Older responses exposed the post fields directly,
+    // so accept both shapes to keep the public feed resilient to rollouts.
+    const item = asRecord(entry.shortcode_media) ?? entry;
     const id = String(item.shortcode ?? item.code ?? item.id ?? "");
     const edges = (item.edge_media_to_caption as { edges?: Array<{ node?: { text?: string } }> } | undefined)?.edges;
     const title = edges?.[0]?.node?.text ?? String(item.caption ?? item.accessibility_caption ?? "New Instagram update from The Brain Brew Ride");
