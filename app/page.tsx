@@ -1,3 +1,4 @@
+import { DonationProgress } from "@/components/donation-progress";
 import { MobileActionBar } from "@/components/mobile-action-bar";
 import { SponsorStrip } from "@/components/sponsor-strip";
 import { SiteHeader } from "@/components/site-header";
@@ -11,7 +12,7 @@ import { VolunteerBanner } from "@/components/volunteer-dialog";
 
 const days = [
   { n: "01", day: "one" as const, date: "SAT · OCT 17", title: "The Full Brain Brew Ride", location: "Fort Mason Park", time: "All day · finish ~6:45 PM", icon: Bike, text: "Follow the cafés as two organizers trace a 22.4-mile brain-shaped route across San Francisco, ending at City Hall.", tone: "purple" },
-  { n: "02", day: "two" as const, date: "SUN · OCT 18", title: "Community Day", location: "Buchanan YMCA", time: "11:00 AM–3:00 PM", icon: Users, text: "A free, family-friendly day of hands-on brain health activities, a memory wall, short talks, food, and connection.", tone: "teal" },
+  { n: "02", day: "two" as const, date: "SUN · OCT 18", title: "Community Day", location: "Buchanan YMCA", time: "10:00 AM–3:00 PM", icon: Users, text: "A free, family-friendly day of hands-on brain health activities, a memory wall, short talks, food, and connection.", tone: "teal" },
   { n: "03", day: "three" as const, date: "SAT · OCT 24", title: "The Brain Brew Crew", location: "Bayfront Park · Mission Bay", time: "10:00 AM ceremony · 10:30 AM walk", icon: PersonStanding, text: "Join our team at Walk to End Alzheimer’s SF for a 3-mile community walk. Walk together, hoist our Memory Wall, and honor those affected by Alzheimer’s.", tone: "coral" },
 ];
 
@@ -24,7 +25,7 @@ export default function Home() {
         <div className="hero-actions"><Button asChild size="lg" className="register"><a href="https://forms.gle/TBYodKPwEr8REew2A" target="_blank" rel="noreferrer">Register Free <ArrowRight size={17} className="hero-register-arrow"/><CalendarDays size={17} className="hero-register-calendar" aria-hidden="true"/></a></Button><DonationDialog/></div>
       </div>
       <div className="route-art flyer-art"><Image src="/brain-brew-route-transparent.png" width={1536} height={1024} sizes="(max-width: 900px) 100vw, 45vw" priority alt="Illustrated San Francisco map showing the red Brain Brew route, Golden Gate Bridge, running shoe, coffee cup, and brain" /></div>
-    </div></section>
+    </div><DonationProgress /></section>
     <section className="impact"><div className="shell impact-inner"><Heart fill="currentColor"/><p>Everything raised supports patients through the <strong>Michael J. Fox Foundation</strong> and the <strong>Alzheimer’s Association.</strong></p></div></section>
     <section className="section shell" id="weekend"><div className="section-head"><div><h2>Three days. One mission. Brain health.</h2></div><p>Every event is <b className="marker-highlight">100% FREE & WELCOME TO ALL</b>. Lunch included on Community Day.</p></div><div className="day-grid">{days.map(({icon: Icon,...d})=><article className={`day-card ${d.tone}`} key={d.n}><div className="day-top"><span>{d.n}</span><Icon/></div><p className="date">{d.date}</p><h3>{d.title}</h3><p className="time"><MapPin size={16}/>{d.location}</p><p className="time"><Clock3 size={16}/>{d.time}</p><p className="day-description">{d.text}</p><WeekendDetailsDialog day={d.day}/></article>)}</div></section>
     <SponsorStrip />

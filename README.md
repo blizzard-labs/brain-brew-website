@@ -298,6 +298,19 @@ runtime. Strava API credentials listed in `.env.example` are optional and add
 authenticated club-event updates.
 
 
+## Donation progress
+
+The hero combines the public totals from the Brain Brew Alzheimer’s Association
+and Michael J. Fox Foundation team pages toward a $3,000 goal. The browser polls
+`/api/donation-progress` every five minutes; the server caches complete totals for
+five minutes. No API credentials are required.
+
+If either source fails, the last complete total is shown with a notice. That
+fallback is held in server memory and resets on restart. If no complete total is
+available, the bar shows an unavailable message rather than a partial total.
+Changes to either fundraising page’s markup may require updating its parser in
+`lib/donation-progress.ts`.
+
 ## Complete Instagram feed setup
 
 The public Instagram profile embed returns a limited sample. To load all available

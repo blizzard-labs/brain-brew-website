@@ -34,7 +34,7 @@ const dayDetails = {
     eyebrow: "Sunday · October 18 · Buchanan YMCA",
     title: "A community day for curious young minds",
     intro:
-      "For the entire family! Stay for twenty minutes or the afternoon—anytime from 11 AM to 3 PM. Accompanied by talks from UCSF doctors!",
+      "For the entire family! Stay for twenty minutes or the afternoon—anytime from 10 AM to 3 PM. Accompanied by talks from UCSF doctors!",
     tone: "teal",
   },
   three: {

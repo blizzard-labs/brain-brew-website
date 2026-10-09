@@ -38,7 +38,7 @@ const volunteerStyles = `
   .volunteer-banner-icon{width:56px;height:56px;display:grid;place-items:center;border:1px solid #ffffff35;border-radius:50%;background:#ffffff10;color:#8ad9c6;flex:none}
   .volunteer-banner-icon svg{width:27px;height:27px}
   .volunteer-banner-copy{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:22px;row-gap:7px}
-  .volunteer-banner-copy h2{font-family:Georgia,serif;font-size:31px;font-weight:700;line-height:1.1;letter-spacing:-.025em;margin:0;white-space:nowrap}
+  .volunteer-banner-copy h2{font-family:"Lilita One",Arial,sans-serif;font-size:36px;font-weight:400;line-height:1.1;letter-spacing:.035em;margin:0;white-space:nowrap}
   .volunteer-banner-copy>p:last-child{grid-column:1/-1;color:#d5cbd9;font-size:14px;line-height:1.55;margin:0;max-width:720px}
   .volunteer-learn-more{height:44px!important;padding-inline:20px!important;border:1px solid #ffffff4d!important;border-radius:3px!important;background:#fff!important;color:var(--deep)!important;font-weight:900!important;box-shadow:none!important}
   .volunteer-learn-more:hover{background:#f1eaf2!important}
@@ -60,7 +60,7 @@ const volunteerStyles = `
   .volunteer-dialog-footer p{color:var(--muted);font-size:12px;line-height:1.5;margin:0;max-width:390px}
   .volunteer-dialog-footer p strong{display:block;color:var(--deep);font-family:Georgia,serif;font-size:17px;margin-bottom:2px}
   .volunteer-signup{height:44px!important;flex:none}
-  @media(max-width:760px){.volunteer-banner-inner{grid-template-columns:auto 1fr;padding-block:28px}.volunteer-banner-copy{display:block}.volunteer-banner-copy h2{font-size:27px;white-space:normal;margin:5px 0 7px}.volunteer-learn-more{grid-column:2;justify-self:start}.volunteer-shifts{grid-template-columns:1fr}.volunteer-dialog-footer{align-items:stretch;flex-direction:column}.volunteer-signup{width:100%;justify-content:center}}
+  @media(max-width:760px){.volunteer-banner-inner{grid-template-columns:auto 1fr;padding-block:28px}.volunteer-banner-copy{display:block}.volunteer-banner-copy h2{font-size:32px;white-space:normal;margin:5px 0 7px}.volunteer-learn-more{grid-column:2;justify-self:start}.volunteer-shifts{grid-template-columns:1fr}.volunteer-dialog-footer{align-items:stretch;flex-direction:column}.volunteer-signup{width:100%;justify-content:center}}
   @media(max-width:560px){.volunteer-banner-inner{grid-template-columns:1fr;gap:12px;padding-block:28px}.volunteer-banner-icon{width:43px;height:43px}.volunteer-banner-icon svg{width:22px;height:22px}.volunteer-learn-more{grid-column:1;width:100%;justify-content:center;margin-top:4px}.volunteer-dialog-body{padding:24px}.volunteer-perks{grid-template-columns:1fr}.volunteer-dialog-footer{padding:21px 24px 25px}}
 `;
 
@@ -73,7 +73,7 @@ export function VolunteerBanner() {
           <span className="volunteer-banner-icon" aria-hidden="true"><HeartHandshake /></span>
           <div className="volunteer-banner-copy">
             <h2 id="volunteer-banner-title">Volunteer with us.</h2>
-            <p>Earn verified service hours, enjoy food and drinks, and support the mission.</p>
+            <p><b>Earn verified service hours, enjoy food and drinks, and support the mission.</b></p>
           </div>
           <VolunteerDialog />
         </div>
