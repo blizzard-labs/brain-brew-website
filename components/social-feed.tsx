@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Bike, CalendarDays, Camera, ExternalLink, MessageCircle, Play } from "lucide-react";
+import { useEffect, useState } from "react";
+import { CommunityGallery } from "@/components/community-gallery";
+import { Bike, CalendarDays, Camera, ExternalLink, MessageCircle, Play } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type Platform = "instagram" | "facebook" | "youtube" | "strava";
@@ -32,10 +33,18 @@ const platformDetails: Record<Platform, { label: string; handle: string; icon: L
 };
 
 const feedStyles = `
+.feed-social-links{display:flex;align-items:center;gap:10px}
+.feed-social-links a{display:flex;align-items:center;gap:8px;color:var(--purple);font-size:14px;font-weight:600;text-decoration:none}
+.feed-social-links a:hover{text-decoration:underline;text-underline-offset:3px}
+.feed-social-links a:focus-visible{outline:2px solid var(--purple);outline-offset:4px}
+.feed-social-links svg{flex-shrink:0}
+.feed-social-links a{white-space:nowrap;background:#fff;border-radius:999px;padding:10px 20px}
+@media(max-width:560px){.feed-social-links{gap:8px}.feed-social-links a{font-size:12px;gap:5px;padding:8px 12px}}
+
 .social-feed-section{background:linear-gradient(180deg,#f3edf7 0%,#fbf8f2 100%);overflow:hidden;border-top:1px solid #e4dbe8;border-bottom:1px solid #e1d8d2}
-.feed-heading{display:flex;align-items:end;justify-content:space-between;gap:64px;margin-bottom:38px}
+.feed-heading{display:flex;align-items:center;justify-content:space-between;gap:64px;margin-bottom:38px}
 .feed-heading h2{font-family:Georgia,serif;color:var(--deep);font-size:48px;letter-spacing:-.035em;margin:0}
-.feed-heading-side{display:flex;align-items:end;gap:26px}.feed-heading-side>p{max-width:370px;color:var(--muted);line-height:1.6;margin:0}
+.feed-heading-side{display:flex;align-items:center;gap:26px}.feed-heading-side>p{max-width:370px;color:var(--muted);line-height:1.6;margin:0}
 .feed-controls{display:flex;gap:8px;flex:none}.feed-controls button{width:42px;height:42px;border:1px solid #bfb1c8;background:#fff;color:var(--purple);display:grid;place-items:center;cursor:pointer;transition:background .18s ease,color .18s ease,transform .18s ease}.feed-controls button:hover{background:var(--purple);color:#fff;transform:translateY(-1px)}.feed-controls svg{width:18px;height:18px}
 .feed-rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:1px;padding:2px 2px 22px;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:#a991bb transparent}
 .feed-card{flex:0 0 282px;height:372px;scroll-snap-align:start;background:#fff;border:1px solid var(--line);box-shadow:0 12px 28px #2810370d;overflow:hidden}.feed-card>a{display:flex;height:100%;flex-direction:column;color:inherit;text-decoration:none}
@@ -84,7 +93,7 @@ function FeedCard({ item }: { item: SocialItem }) {
       <div className="feed-card-copy">
         <div className="feed-card-account"><span>{details.handle}</span><ExternalLink/></div>
         <h3>{item.title}</h3>
-        <p>{isProfile ? `New ${details.label} updates will join this stream automatically as they are published.` : item.published}</p>
+        <p>{isProfile ? `Visit ${details.label} for all posts and updates.` : item.published}</p>
       </div>
     </a>
   </article>;
@@ -92,7 +101,6 @@ function FeedCard({ item }: { item: SocialItem }) {
 
 export function SocialFeed() {
   const [items, setItems] = useState<SocialItem[] | null>(null);
-  const railRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -101,13 +109,20 @@ export function SocialFeed() {
     function refresh() {
       fetch("/api/social-feed", { signal: controller.signal })
         .then((response) => response.ok ? response.json() : Promise.reject())
-        .then((data: { items?: SocialItem[] }) => {
+        .then((data: { items?: SocialItem[]; instagramStatus?: string }) => {
           const liveItems = data.items ?? [];
-          setItems([...liveItems, ...profileCards]);
+          setItems(previous => {
+            const keepInstagram = data.instagramStatus === "unavailable" || data.instagramStatus === "stale";
+            const instagram = keepInstagram ? (previous ?? []).filter(item => item.platform === "instagram" && item.kind !== "profile") : [];
+            const merged = new Map([...instagram, ...liveItems].map(item => [`${item.platform}-${item.id}`, item]));
+            return [...merged.values(), ...profileCards];
+          });
           hasLoaded = true;
         })
         .catch((error: unknown) => {
-          if ((error as { name?: string })?.name !== "AbortError" && !hasLoaded) setItems(profileCards);
+          if ((error as { name?: string })?.name !== "AbortError") {
+            if (!hasLoaded) setItems(profileCards);
+          }
         });
     }
 
@@ -119,41 +134,25 @@ export function SocialFeed() {
     };
   }, []);
 
-  function scroll(direction: -1 | 1) {
-    const rail = railRef.current;
-    if (!rail) return;
-    const card = rail.querySelector<HTMLElement>(".feed-card");
-    rail.scrollBy({ left: direction * ((card?.offsetWidth ?? 288) + 18) * 2, behavior: "smooth" });
-  }
-
   return <><style>{feedStyles}</style><section className="social-feed-section section" id="updates">
     <div className="shell">
       <div className="feed-heading">
-        <div><p className="eyebrow">Live from Brain Brew</p><h2>Fresh from the feed</h2></div>
+        <div><h2>Fresh from the feed</h2></div>
         <div className="feed-heading-side">
-          <p>One stream for every public update across Instagram, Facebook, YouTube, and the Brain Brew Strava club.</p>
-          <div className="feed-controls" aria-label="Scroll social updates">
-            <button type="button" onClick={() => scroll(-1)} aria-label="See previous updates"><ArrowLeft/></button>
-            <button type="button" onClick={() => scroll(1)} aria-label="See more updates"><ArrowRight/></button>
-          </div>
+          <nav className="feed-social-links" aria-label="Follow Brain Brew">
+            <a href={profiles.instagram} target="_blank" rel="noreferrer" aria-label="@brainbrewsf on Instagram"><svg width="18" height="18" viewBox="2 2 20 20" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>@brainbrewsf</span></a>
+            <a href={profiles.facebook} target="_blank" rel="noreferrer" aria-label="The Brain Brew Ride on Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.025 4.388 11.02 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.972h-1.513c-1.49 0-1.956.931-1.956 1.887v2.262h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.098 24 12.073Z"/></svg><span>The Brain Brew Ride</span></a>
+          </nav>
         </div>
       </div>
 
-      <div className="feed-rail" ref={railRef} tabIndex={0} aria-label="Latest Brain Brew social posts">
+      <div className="feed-rail" tabIndex={0} aria-label="Latest Brain Brew social posts">
         {items === null
           ? [0, 1, 2, 3].map((item) => <div className="feed-card feed-card-loading" aria-hidden="true" key={item}><span/><span/><span/></div>)
           : items.map((item) => <FeedCard item={item} key={`${item.platform}-${item.id}`}/>)}
       </div>
 
-      <div className="feed-footer">
-        <span><i/> Auto-refreshing throughout the events</span>
-        <nav aria-label="Follow Brain Brew">
-          <a href={profiles.instagram} target="_blank" rel="noreferrer">Instagram <ExternalLink/></a>
-          <a href={profiles.facebook} target="_blank" rel="noreferrer">Facebook <ExternalLink/></a>
-          <a href={profiles.youtube} target="_blank" rel="noreferrer">YouTube <ExternalLink/></a>
-          <a href={profiles.strava} target="_blank" rel="noreferrer">Strava <ExternalLink/></a>
-        </nav>
-      </div>
+      <CommunityGallery />
     </div>
   </section></>;
 }

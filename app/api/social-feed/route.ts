@@ -1,3 +1,5 @@
+import { getInstagramFeed } from "@/lib/instagram-feed";
+
 const YOUTUBE_CHANNEL = "https://www.youtube.com/@brainbrewsf";
 const YOUTUBE_POSTS = `${YOUTUBE_CHANNEL}/posts`;
 const YOUTUBE_VIDEOS = "https://www.youtube.com/feeds/videos.xml?channel_id=UCDVo4AWAp_l4tfKmx-31mnQ";
@@ -180,7 +182,7 @@ function parseInstagram(html: string): FeedItem[] {
   }).filter((item) => item.id);
 }
 
-export function parseStravaPosts(html: string): FeedItem[] {
+function parseStravaPosts(html: string): FeedItem[] {
   const nextData = html.match(/<script[^>]+id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/i)?.[1];
   if (!nextData) return [];
 
@@ -238,7 +240,7 @@ function eventDateLabel(value: string, timeZone: string) {
   }
 }
 
-export function parseStravaEvents(value: unknown): FeedItem[] {
+function parseStravaEvents(value: unknown): FeedItem[] {
   if (!Array.isArray(value)) return [];
   const now = Date.now();
 
@@ -271,7 +273,7 @@ export function parseStravaEvents(value: unknown): FeedItem[] {
   });
 }
 
-export function parseStravaEventsJson(json: string): FeedItem[] {
+function parseStravaEventsJson(json: string): FeedItem[] {
   try {
     const withSafeIds = json.replace(/("(?:id|club_id|route_id)"\s*:\s*)(\d{16,})/g, '$1"$2"');
     return parseStravaEvents(JSON.parse(withSafeIds));
@@ -322,12 +324,14 @@ export async function GET() {
   const request = (url: string, accept: string) => fetch(url, { headers: { accept, "user-agent": "Mozilla/5.0 (compatible; BrainBrewRide/1.0)" }, signal: AbortSignal.timeout(8000) });
 
   try {
-    const [videosResult, postsResult, instagramResult, stravaPostsResult, stravaEventsResult] = await Promise.allSettled([
+    const [videosResult, postsResult, instagramResult, stravaPostsResult, stravaEventsResult, instagramApiResult] = await Promise.allSettled([
       request(YOUTUBE_VIDEOS, "application/atom+xml"),
       request(YOUTUBE_POSTS, "text/html"),
-      request(INSTAGRAM_PROFILE, "text/html"),
+      process.env.INSTAGRAM_ACCESS_TOKEN && process.env.INSTAGRAM_USER_ID && process.env.INSTAGRAM_API_VERSION
+        ? Promise.resolve(null) : request(INSTAGRAM_PROFILE, "text/html"),
       request(STRAVA_CLUB, "text/html"),
       requestStravaEvents(),
+      getInstagramFeed(),
     ]);
 
     const videosResponse = videosResult.status === "fulfilled" ? videosResult.value : null;
@@ -337,14 +341,17 @@ export async function GET() {
     const stravaEventsResponse = stravaEventsResult.status === "fulfilled" ? stravaEventsResult.value : null;
     const videos = videosResponse?.ok ? parseVideos(await videosResponse.text()) : [];
     const posts = postsResponse?.ok ? parseYouTubePosts(await postsResponse.text()) : [];
-    const instagram = instagramResponse?.ok ? parseInstagram(await instagramResponse.text()) : [];
+    const instagramApi = instagramApiResult.status === "fulfilled" ? instagramApiResult.value : { items: [], status: "unavailable" };
+    const instagram = instagramApi.status === "not_connected"
+      ? (instagramResponse?.ok ? parseInstagram(await instagramResponse.text()) : [])
+      : instagramApi.items;
     const stravaPosts = stravaPostsResponse?.ok ? parseStravaPosts(await stravaPostsResponse.text()) : [];
     const stravaEvents = stravaEventsResponse?.ok ? parseStravaEventsJson(await stravaEventsResponse.text()) : [];
     const items = [...posts, ...videos, ...instagram, ...stravaPosts, ...stravaEvents]
       .sort((a, b) => (Date.parse(b.publishedAt ?? "") || 0) - (Date.parse(a.publishedAt ?? "") || 0));
 
-    return Response.json({ items }, { headers: { "Cache-Control": "public, max-age=300, s-maxage=300, stale-while-revalidate=900" } });
+    return Response.json({ items, instagramStatus: instagramApi.status }, { headers: { "Cache-Control": "public, max-age=300, s-maxage=300, stale-while-revalidate=900" } });
   } catch {
-    return Response.json({ items: [] }, { headers: { "Cache-Control": "public, max-age=60, s-maxage=60" } });
+    return Response.json({ items: [], instagramStatus: "unavailable" }, { headers: { "Cache-Control": "public, max-age=60, s-maxage=60" } });
   }
 }

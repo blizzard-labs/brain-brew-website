@@ -13,3 +13,7 @@ tmp
 !.env.example
 
 npm-debug.log*
+
+# Original artwork is not needed to build or serve the site.
+assets/source
+*.tsbuildinfo

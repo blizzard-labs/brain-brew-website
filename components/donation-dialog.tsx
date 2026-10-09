@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -37,17 +35,8 @@ export function DonationDialog({ className, size = "lg" }: DonationDialogProps =
           <Heart aria-hidden="true" /> Donate
         </Button>
       </DialogTrigger>
-      <DialogContent className="donation-dialog">
-        <DialogHeader>
-          <div className="donation-icon" aria-hidden="true">
-            <Heart />
-          </div>
-          <DialogTitle>Choose where to make an impact</DialogTitle>
-          <DialogDescription>
-            Both official Brain Brew fundraisers directly support people affected by
-            Alzheimer’s and Parkinson’s.
-          </DialogDescription>
-        </DialogHeader>
+      <DialogContent className="donation-dialog" aria-describedby={undefined}>
+        <DialogTitle className="sr-only">Donate to a Brain Brew fundraiser</DialogTitle>
         <div className="donation-options">
           {donationOptions.map((option) => (
             <a

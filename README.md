@@ -290,9 +290,93 @@ existing backups instead of overwriting them in step 2.
 ## Other commands
 
 - `npm run lint` checks the source for common issues.
-- `npm test` runs lint and verifies a complete production build.
+- `npm test` runs the Instagram pagination tests, lint, and a complete production build.
 
 Static assets live in `public/`. No database or authentication provider is
 required. The social feed reads public YouTube, Instagram, and Strava pages at
 runtime. Strava API credentials listed in `.env.example` are optional and add
 authenticated club-event updates.
+
+
+## Complete Instagram feed setup
+
+The public Instagram profile embed returns a limited sample. To load all available
+published posts, reels, and carousel posts, configure Instagram API with Instagram
+Login. Each carousel is represented by one card linking to the original post.
+Stories and private/archived content are not part of this feed.
+
+1. Use a Business or Creator Instagram account for `@brainbrewsf`.
+2. Create a Meta developer app and add **Instagram API with Instagram Login**.
+   Connect/authorize `@brainbrewsf` in the app's Instagram setup, with the read
+   permission `instagram_business_basic`. Follow the app dashboard's tester/account
+   authorization steps if the app is in development mode.
+3. Generate/exchange a long-lived Instagram access token using Meta's setup flow.
+   Record the Instagram user ID and the API version selected in the dashboard.
+4. Put `INSTAGRAM_USER_ID`, `INSTAGRAM_ACCESS_TOKEN`, and `INSTAGRAM_API_VERSION`
+   in `.env.local` for local development, and in the server's secret environment
+   configuration for production. Use a version such as `v22.0` only if supported
+   by your app; copy the version from Meta's dashboard. Never use `NEXT_PUBLIC_`
+   names, commit tokens, or paste them into chat.
+5. Restart the local server. Check `/api/social-feed`: `instagramStatus` should
+   be `complete`, with the expected number of Instagram items (currently 10 in
+   the supplied profile screenshot). Deploy the code and configure the same
+   credentials on the production server separately.
+
+The server follows all media cursors, deduplicates IDs, and caches only completed
+syncs for five minutes. Failed later pages never replace a complete cached result.
+This cache is in memory per server process: it does not survive restarts. Without
+credentials, the limited public embed remains available. The response reports
+`not_connected`, `complete`, `stale`, or `unavailable`; the page links visitors to
+Instagram when full freshness cannot be confirmed.
+
+Tokens expire or may be revoked. Renew/rotate the long-lived token using Meta's
+supported flow before expiry, update the server secret, and restart the service.
+Automatic durable token rotation is not implemented. The browser refreshes every
+five minutes while the page is open; this is not an independent background job.
+
+References: [Meta Instagram Login collection](https://www.postman.com/meta/instagram/folder/6raa77c/instagram-api-with-instagram-login)
+and [Meta setup guide](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/get-started).
+
+Run pagination regression tests with `node --experimental-strip-types --test tests/instagram-feed.test.mjs`.
+
+
+## Image organization
+
+Keep original uploads in `assets/source/`, outside the public web directory:
+
+- `assets/source/gallery/`: original event and City Hall photos (formerly `frame-pics/`).
+- `assets/source/sponsors/`: original partner artwork (formerly `sponsor-logos/`).
+- `assets/source/team/`: original crew portraits (formerly `team-photos/`).
+
+The site uses the optimized, named assets in `public/gallery/`, `public/sponsors/`,
+and `public/team/`. Existing hero artwork remains in `public/`; local fonts and
+licenses live in `public/fonts/`. Moving the originals does not change site URLs.
+Original uploads are excluded from the Docker build context. When adding an image,
+keep its original in `assets/source/`, export a web-sized version into the matching
+`public/` folder, and update the relevant gallery, sponsor, or crew component.
+
+### Optional social credentials on the deployment server
+
+The Compose app passes through the optional variables in `.env.example`. Store
+these in the VM shell environment or the private `.env.image` file used by the
+existing deployment commands. Do not commit credentials. Recreate the app after
+changing them. Without Instagram credentials, the site uses the limited public
+feed; complete syncing requires the authorized connection described above.
+
+Production builds use Next.js’s supported Webpack mode (`next build --webpack`)
+to avoid the local Turbopack CSS worker permission failure. Docker and CI use the
+same build command through `npm test`.
+
+## Dependency security checks
+
+Run `npm ci`, `npm audit`, and `npm audit --omit=dev` before deployment.
+The October 9, 2026 update moves Next.js and its ESLint configuration to 16.4.0
+and refreshes compatible transitive security patches. The production dependency
+audit reports zero vulnerabilities.
+
+The full audit still reports five high-severity package entries for one unpatched
+`braces` advisory (GHSA-vfj7-8cjw-p6xm), through Next.js's development-only ESLint
+plugin → fast-glob → micromatch chain. No patched braces release is currently
+published. Do not use `npm audit fix --force` to silence this: its proposed
+eslint-config-next 14 downgrade mismatches the installed framework. Recheck for
+an upstream fix before future dependency updates. No audit suppression is applied.
