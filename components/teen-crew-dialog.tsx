@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import lucasPortrait from "@/public/team/lucas-min.webp";
+import larryPortrait from "@/public/team/larry-zhao.webp";
 import { UsersRound } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
@@ -11,7 +12,7 @@ const crew = [
   { name: "Jaylen Lee", title: "Director · Community" },
   { name: "Lucas Min", title: "Director · Communications", photo: lucasPortrait },
   { name: "Manasvini Singh", title: "Director · Operations" },
-  { name: "Larry Zhao", title: "Director · Education" },
+  { name: "Larry Zhao", title: "Director · Education", photo: larryPortrait },
 ];
 
 export function TeenCrewDialog() {
