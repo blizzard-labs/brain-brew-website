@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import lucasPortrait from "@/public/team/lucas-min.webp";
 import { UsersRound } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
@@ -8,7 +9,7 @@ const crew = [
   { name: "Krishna Bhatt", title: "Co-founder · Executive", photo: "/team/krishna.webp" },
   { name: "Govind Krishnan", title: "Co-founder · Executive" },
   { name: "Jaylen Lee", title: "Director · Community" },
-  { name: "Lucas Min", title: "Director · Communications" },
+  { name: "Lucas Min", title: "Director · Communications", photo: lucasPortrait },
   { name: "Manasvini Singh", title: "Director · Operations" },
   { name: "Larry Zhao", title: "Director · Education" },
 ];
