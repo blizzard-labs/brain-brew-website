@@ -24,10 +24,42 @@ export default function Home() {
         <p className="lede">Three days of learning, connection, and coffee—supporting those with Alzheimer’s and Parkinson’s and their families.</p>
         <div className="hero-actions"><Button asChild size="lg" className="register"><a href="https://forms.gle/TBYodKPwEr8REew2A" target="_blank" rel="noreferrer">Register Free <ArrowRight size={17} className="hero-register-arrow"/><CalendarDays size={17} className="hero-register-calendar" aria-hidden="true"/></a></Button><DonationDialog/></div>
       </div>
-      <div className="route-art flyer-art"><Image src="/brain-brew-route-transparent.png" width={1536} height={1024} sizes="(max-width: 900px) 100vw, 45vw" priority alt="Illustrated San Francisco map showing the red Brain Brew route, Golden Gate Bridge, running shoe, coffee cup, and brain" /></div>
+      <div className="hero-video">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/Uf-ZGhrgUkU?playsinline=1&rel=0"
+          title="Brain Brew Ride video"
+          width={1536}
+          height={1024}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
+      </div>
     </div><DonationProgress /></section>
     <section className="impact"><div className="shell impact-inner"><Heart fill="currentColor"/><p>Everything raised supports patients through the <strong>Michael J. Fox Foundation</strong> and the <strong>Alzheimer’s Association.</strong></p></div></section>
-    <section className="section shell" id="weekend"><div className="section-head"><div><h2>Three days. One mission. Brain health.</h2></div><p>Every event is <b className="marker-highlight">100% FREE & WELCOME TO ALL</b>. Lunch included on Community Day.</p></div><div className="day-grid">{days.map(({icon: Icon,...d})=><article className={`day-card ${d.tone}`} key={d.n}><div className="day-top"><span>{d.n}</span><Icon/></div><p className="date">{d.date}</p><h3>{d.title}</h3><p className="time"><MapPin size={16}/>{d.location}</p><p className="time"><Clock3 size={16}/>{d.time}</p><p className="day-description">{d.text}</p><WeekendDetailsDialog day={d.day}/></article>)}</div></section>
+    <section className="section shell" id="weekend">
+      <div className="section-head"><div><h2>Three days. One mission. Brain health.</h2></div><p>Every event is <b className="marker-highlight">100% FREE & WELCOME TO ALL</b>. Lunch included on Community Day.</p></div>
+      <div className="day-grid">
+        {days.map(({ icon: Icon, ...d }) => (
+          <div className={`day-card-wrap${d.day === "two" ? " community-day-feature" : ""}`} key={d.n}>
+            {d.day === "two" && <div className="community-day-accents" aria-hidden="true">
+              <span className="pop-rectangle pop-yellow" />
+              <span className="pop-rectangle pop-coral" />
+              <span className="pop-rectangle pop-lavender" />
+              <span className="pop-rectangle pop-teal" />
+            </div>}
+            <article className={`day-card ${d.tone}`}>
+              <div className="day-top"><span>{d.n}</span><Icon/></div>
+              <p className="date">{d.date}</p><h3>{d.title}</h3>
+              <p className="time"><MapPin size={16}/>{d.location}</p>
+              <p className="time"><Clock3 size={16}/>{d.time}</p>
+              <p className="day-description">{d.text}</p>
+              <WeekendDetailsDialog day={d.day}/>
+            </article>
+          </div>
+        ))}
+      </div>
+    </section>
     <SponsorStrip />
     <VolunteerBanner />
     <SocialFeed/>

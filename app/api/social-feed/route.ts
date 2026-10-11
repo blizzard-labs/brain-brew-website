@@ -3,7 +3,6 @@ import { getInstagramFeed } from "@/lib/instagram-feed";
 
 const YOUTUBE_CHANNEL = "https://www.youtube.com/@brainbrewsf";
 const YOUTUBE_POSTS = `${YOUTUBE_CHANNEL}/posts`;
-const YOUTUBE_VIDEOS = "https://www.youtube.com/feeds/videos.xml?channel_id=UCDVo4AWAp_l4tfKmx-31mnQ";
 const INSTAGRAM_PROFILE = "https://www.instagram.com/brainbrewsf/embed";
 const STRAVA_CLUB_ID = "2321462";
 const STRAVA_CLUB = "https://www.strava.com/clubs/brainbrewsf";
@@ -26,15 +25,6 @@ type FeedItem = {
 type JsonRecord = Record<string, unknown>;
 
 let stravaTokenCache: { token: string; expiresAt: number } | null = null;
-
-function decodeXml(value: string) {
-  return value.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#(?:39|x27);/g, "'");
-}
-
-function xmlValue(entry: string, tag: string) {
-  const match = entry.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`));
-  return match ? decodeXml(match[1].trim()) : "";
-}
 
 function dateLabel(value: string) {
   const date = new Date(value);
@@ -71,24 +61,6 @@ function photoUrl(value: unknown) {
     .filter((entry): entry is [string, string] => typeof entry[1] === "string" && entry[1].startsWith("https://"))
     .sort(([a], [b]) => (Number(b) || 0) - (Number(a) || 0));
   return candidates[0]?.[1] ?? null;
-}
-
-function parseVideos(xml: string): FeedItem[] {
-  return [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].map((match) => {
-    const entry = match[1];
-    const id = xmlValue(entry, "yt:videoId");
-    const publishedAt = xmlValue(entry, "published");
-    return {
-      id,
-      platform: "youtube" as const,
-      kind: "video" as const,
-      title: xmlValue(entry, "title") || "New video from The Brain Brew Ride",
-      published: dateLabel(publishedAt),
-      publishedAt,
-      thumbnail: id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : null,
-      url: id ? `https://www.youtube.com/watch?v=${id}` : YOUTUBE_CHANNEL,
-    };
-  }).filter((item) => item.id);
 }
 
 function textFrom(value: unknown): string {
@@ -295,8 +267,7 @@ export async function GET() {
   const request = (url: string, accept: string) => fetch(url, { headers: { accept, "user-agent": "Mozilla/5.0 (compatible; BrainBrewRide/1.0)" }, signal: AbortSignal.timeout(8000) });
 
   try {
-    const [videosResult, postsResult, instagramResult, stravaPostsResult, stravaEventsResult, instagramApiResult] = await Promise.allSettled([
-      request(YOUTUBE_VIDEOS, "application/atom+xml"),
+    const [postsResult, instagramResult, stravaPostsResult, stravaEventsResult, instagramApiResult] = await Promise.allSettled([
       request(YOUTUBE_POSTS, "text/html"),
       process.env.INSTAGRAM_ACCESS_TOKEN && process.env.INSTAGRAM_USER_ID && process.env.INSTAGRAM_API_VERSION
         ? Promise.resolve(null) : request(INSTAGRAM_PROFILE, "text/html"),
@@ -305,12 +276,10 @@ export async function GET() {
       getInstagramFeed(),
     ]);
 
-    const videosResponse = videosResult.status === "fulfilled" ? videosResult.value : null;
     const postsResponse = postsResult.status === "fulfilled" ? postsResult.value : null;
     const instagramResponse = instagramResult.status === "fulfilled" ? instagramResult.value : null;
     const stravaPostsResponse = stravaPostsResult.status === "fulfilled" ? stravaPostsResult.value : null;
     const stravaEventsResponse = stravaEventsResult.status === "fulfilled" ? stravaEventsResult.value : null;
-    const videos = videosResponse?.ok ? parseVideos(await videosResponse.text()) : [];
     const posts = postsResponse?.ok ? parseYouTubePosts(await postsResponse.text()) : [];
     const instagramApi = instagramApiResult.status === "fulfilled" ? instagramApiResult.value : { items: [], status: "unavailable" };
     const instagram = instagramApi.status === "not_connected"
@@ -318,7 +287,7 @@ export async function GET() {
       : instagramApi.items;
     const stravaPosts = stravaPostsResponse?.ok ? parseStravaPosts(await stravaPostsResponse.text()) : [];
     const stravaEvents = stravaEventsResponse?.ok ? parseStravaEventsJson(await stravaEventsResponse.text()) : [];
-    const items = [...posts, ...videos, ...instagram, ...stravaPosts, ...stravaEvents]
+    const items = [...posts, ...instagram, ...stravaPosts, ...stravaEvents]
       .sort((a, b) => (Date.parse(b.publishedAt ?? "") || 0) - (Date.parse(a.publishedAt ?? "") || 0));
 
     return Response.json({ items, instagramStatus: instagramApi.status }, { headers: { "Cache-Control": "public, max-age=300, s-maxage=300, stale-while-revalidate=900" } });

@@ -110,7 +110,7 @@ export function SocialFeed() {
       fetch("/api/social-feed", { signal: controller.signal })
         .then((response) => response.ok ? response.json() : Promise.reject())
         .then((data: { items?: SocialItem[]; instagramStatus?: string }) => {
-          const liveItems = data.items ?? [];
+          const liveItems = (data.items ?? []).filter(item => !(item.platform === "youtube" && item.kind === "video"));
           setItems(previous => {
             const keepInstagram = data.instagramStatus === "unavailable" || data.instagramStatus === "stale";
             const instagram = keepInstagram ? (previous ?? []).filter(item => item.platform === "instagram" && item.kind !== "profile") : [];
