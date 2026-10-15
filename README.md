@@ -300,14 +300,24 @@ authenticated club-event updates.
 
 ## Donation progress
 
-The hero combines the public totals from the Brain Brew Alzheimer’s Association
-and Michael J. Fox Foundation team pages toward a $3,000 goal. The browser polls
+The hero shows two bars, one each for the Brain Brew Alzheimer’s Association
+(purple) and Michael J. Fox Foundation (orange) team pages, each toward a $2,500
+goal. The browser polls
 `/api/donation-progress` every five minutes; the server caches complete totals for
 five minutes. No API credentials are required.
 
-If either source fails, the last complete total is shown with a notice. That
-fallback is held in server memory and resets on restart. If no complete total is
-available, the bar shows an unavailable message rather than a partial total.
+If either source fails, the last complete totals are shown with a notice. That
+fallback is held in server memory and resets on restart. If no complete totals
+are available, the bars show an unavailable message rather than partial totals.
+
+Visitors can also report an employer match, and which charity it went to, from
+the donate dialog. Each match is added to that charity’s bar and stored in `data/matched-gifts.json` (set
+`MATCHED_GIFTS_FILE` to change the path). In production this lives on the
+`matched_gifts` Docker volume, so it survives redeploys. The form is public, so
+each entry is capped at $1,000 and limited to three per visitor per hour. Every
+entry is timestamped; to remove a bad one, edit the file on the volume and
+restart the app container.
+
 Changes to either fundraising page’s markup may require updating its parser in
 `lib/donation-progress.ts`.
 

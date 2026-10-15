@@ -1,4 +1,6 @@
-export const DONATION_GOAL = 3000;
+import { matchedGifts, type MatchedTotals } from "./matched-gifts.ts";
+
+export const DONATION_GOAL = 2500;
 const SOURCES = {
   alzheimers: "https://act.alz.org/goto/brainbrew",
   michaelJFox: "https://give.michaeljfox.org/BrainBrew",
@@ -38,7 +40,7 @@ export function parseMichaelJFoxTotal(html: string): number {
   throw new Error("Incomplete fundraising data");
 }
 
-type Snapshot = { total: number; alzheimers: number; michaelJFox: number; updatedAt: string };
+type Snapshot = { alzheimers: number; michaelJFox: number; updatedAt: string };
 let snapshot: Snapshot | undefined;
 let pending: Promise<Snapshot> | undefined;
 const REFRESH_MS = 5 * 60 * 1000;
@@ -50,20 +52,38 @@ async function readTotals(): Promise<Snapshot> {
     return response.text();
   };
   const [alzHtml, foxHtml] = await Promise.all([read(SOURCES.alzheimers), read(SOURCES.michaelJFox)]);
-  const alzheimers = parseAlzheimersTotal(alzHtml);
-  const michaelJFox = parseMichaelJFoxTotal(foxHtml);
-  return { total: Math.round((alzheimers + michaelJFox) * 100) / 100, alzheimers, michaelJFox, updatedAt: new Date().toISOString() };
+  return { alzheimers: parseAlzheimersTotal(alzHtml), michaelJFox: parseMichaelJFoxTotal(foxHtml), updatedAt: new Date().toISOString() };
 }
 
+async function readMatched(): Promise<MatchedTotals> {
+  try {
+    return await matchedGifts.totals();
+  } catch {
+    return { alzheimers: 0, michaelJFox: 0 };
+  }
+}
+
+const charity = (raised: number, matched: number) =>
+  ({ raised, matched, total: Math.round((raised + matched) * 100) / 100, goal: DONATION_GOAL });
+
+const withMatched = (current: Snapshot, matched: MatchedTotals) => ({
+  updatedAt: current.updatedAt,
+  charities: {
+    alzheimers: charity(current.alzheimers, matched.alzheimers),
+    michaelJFox: charity(current.michaelJFox, matched.michaelJFox),
+  },
+});
+
 export async function getDonationProgress() {
-  if (snapshot && Date.now() - Date.parse(snapshot.updatedAt) < REFRESH_MS) return { ...snapshot, goal: DONATION_GOAL, status: "current" };
+  const matched = await readMatched();
+  if (snapshot && Date.now() - Date.parse(snapshot.updatedAt) < REFRESH_MS) return { ...withMatched(snapshot, matched), status: "current" };
   try {
     if (!pending) pending = readTotals().finally(() => { pending = undefined; });
     snapshot = await pending;
-    return { ...snapshot, goal: DONATION_GOAL, status: "current" };
+    return { ...withMatched(snapshot, matched), status: "current" };
   } catch {
     return snapshot
-      ? { ...snapshot, goal: DONATION_GOAL, status: "stale" }
-      : { total: null, goal: DONATION_GOAL, status: "unavailable", updatedAt: null };
+      ? { ...withMatched(snapshot, matched), status: "stale" }
+      : { charities: null, status: "unavailable", updatedAt: null };
   }
 }
