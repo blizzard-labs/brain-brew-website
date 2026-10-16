@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowRight, FileText } from "lucide-react";
 import {
   Dialog,
@@ -18,6 +19,14 @@ const stops = [
   ["City Hall · Finish", "~6:45 PM", "Public finish + group photo"],
 ];
 
+const speakers = [
+  "Yanilka Soto-Muñiz",
+  "Naz Dundar",
+  "Reet Mishra",
+  "Jacqueline Williams",
+  "Kunal Shroff",
+];
+
 type WeekendDay = "one" | "two" | "three";
 
 const dayDetails = {
@@ -32,9 +41,8 @@ const dayDetails = {
   two: {
     number: "02",
     eyebrow: "Sunday · October 18 · Buchanan YMCA",
-    title: "A community day for curious young minds",
-    intro:
-      "For the entire family! Stay for twenty minutes or the afternoon—anytime from 10 AM to 3 PM. Accompanied by talks from UCSF doctors!",
+    title: "A community day for the neighborhood",
+    intro: null,
     tone: "teal",
   },
   three: {
@@ -65,11 +73,24 @@ function DayContent({ day }: { day: WeekendDay }) {
 
   if (day === "two") {
     return (
-      <div className="station-grid">
-        <div><span>01</span><h3>The Empathy Café</h3><p>Try tremor gloves and vision-distorting goggles while seated with a spotter.</p></div>
-        <div><span>02</span><h3>The Memory Wall</h3><p>Honor someone you love who has been affected.</p></div>
-        <div><span>03</span><h3>Build-a-Brain</h3><p>Kids create a model and learn what each region does.</p></div>
-        <div><span>04</span><h3>Move Your Mind</h3><p>Mind-controlled EEG games connect movement with long-term brain health.</p></div>
+      <div className="community-day-layout">
+        <Image
+          className="community-day-flyer"
+          src="/community-day-flyer.webp"
+          alt="Brain Brew Community Day flyer: October 18, 10 AM–3 PM at Buchanan YMCA. Free entrance, lunch included, family-friendly."
+          width={864}
+          height={1080}
+          sizes="(max-width: 560px) 85vw, 380px"
+        />
+        <section className="speaker-list" aria-labelledby="speaker-list-title">
+          <h3 id="speaker-list-title">Guest speakers</h3>
+          <ul>
+            {speakers.map((speaker) => (
+              <li key={speaker}>{speaker}</li>
+            ))}
+          </ul>
+          <p>From UCSF and Gladstone/UCSF. Talks begin at 10:30 AM; order and times are still being finalized.</p>
+        </section>
       </div>
     );
   }
@@ -123,6 +144,7 @@ export function WeekendDetailsDialog({ day }: { day: WeekendDay }) {
       </DialogTrigger>
       <DialogContent
         className={`donation-dialog weekend-details-dialog ${details.tone}`}
+        {...(!details.intro && { "aria-describedby": undefined })}
         style={{
           width: "min(820px, calc(100vw - 32px))",
           maxWidth: "820px",
@@ -132,12 +154,16 @@ export function WeekendDetailsDialog({ day }: { day: WeekendDay }) {
         }}
       >
         <DialogHeader className="weekend-dialog-header">
-          <span className="weekend-dialog-day">Day {details.number}</span>
+          {day !== "two" && (
+            <span className="weekend-dialog-day">Day {details.number}</span>
+          )}
           <p className={`eyebrow ${details.tone}-text`}>{details.eyebrow}</p>
           <DialogTitle>{details.title}</DialogTitle>
-          <DialogDescription className="weekend-dialog-intro">
-            {details.intro}
-          </DialogDescription>
+          {details.intro && (
+            <DialogDescription className="weekend-dialog-intro">
+              {details.intro}
+            </DialogDescription>
+          )}
         </DialogHeader>
         <div className="weekend-dialog-body">
           <DayContent day={day} />
